@@ -18,6 +18,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'phone',
         'email',
         'password',
     ];
@@ -40,4 +41,31 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getInitialsAttribute()
+    {
+        $split = explode(' ', $this->attributes['name']);
+        return strtoupper($split[0][0]) . strtoupper($split[1][0]);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+    
+    public function hasRole($user_role)
+    {
+        foreach ($this->roles as $role) {
+            if ($user_role == $role->slug) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
