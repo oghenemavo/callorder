@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use App\Models\Role;
 
 class RoleController extends Controller
 {
@@ -67,9 +68,34 @@ class RoleController extends Controller
             if($request->ajax()){
                 return response()->json(['success' => true]);
             } else {
-                return back()->with('message', 'Event Deleted Successfully!');
+                return back()->with('message', 'Role Deleted Successfully!');
             }
         }
         return back()->with('error', 'Unable to Delete Role!');
     }
+
+    public function permissions(Role $role)
+    {
+        $data['page_title'] = $role->name . ' Permissions';
+        $data['role'] = $role;
+        $data['permissions'] = Permission::all();
+        return view('admin.manage.role_permissions', $data);
+    }
+
+    public function attachPermission(Request $request, Role $role)
+    {
+        $role->permissions()->attach($request->permission);
+        if($request->ajax()){
+            return response()->json(['success' => true]);
+        }
+    }
+
+    public function detachPermission(Request $request, Role $role)
+    {
+        $role->permissions()->detach($request->permission);
+        if($request->ajax()){
+            return response()->json(['success' => true]);
+        }
+    }
+
 }

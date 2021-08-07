@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,14 @@ Route::name('admin.')->group(function() {
                 Route::post('create/role', [RoleController::class, 'createRole'])->name('auth.create.role');
                 Route::put('update/role/{role}', [RoleController::class, 'updateRole'])->name('auth.update.role');
                 Route::delete('delete/role/{role}', [RoleController::class, 'deleteRole'])->name('auth.delete.role');
+                Route::get('role/{role}/permissions', [RoleController::class, 'permissions'])->name('auth.role.permissions');
+                Route::put('attach/role/{role}/permission', [RoleController::class, 'attachPermission'])->name('auth.attach.role_permission');
+                Route::put('detach/role/{role}/permission', [RoleController::class, 'detachPermission'])->name('auth.detach.role_permission');
+                
+                Route::get('permissions', [PermissionController::class, 'index'])->name('auth.permissions');
+                Route::post('create/permission', [PermissionController::class, 'createPermission'])->name('auth.create.permission');
+                Route::put('update/permission/{permission}', [PermissionController::class, 'updatePermission'])->name('auth.update.permission');
+                Route::delete('delete/permission/{permission}', [PermissionController::class, 'deletePermission'])->name('auth.delete.permission');
             });
         });
     });

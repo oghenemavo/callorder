@@ -23,7 +23,7 @@
                     <a href="{{ route('admin.auth.roles') }}" class="nk-menu-link" data-original-title="" title=""><span class="nk-menu-text">Roles & Permissions</span></a>
                 </li>
                 <li class="nk-menu-item">
-                    <a href="html/pages/auths/auth-register-v2.html" class="nk-menu-link" data-original-title="" title=""><span class="nk-menu-text">Permissions</span></a>
+                    <a href="{{ route('admin.auth.permissions') }}" class="nk-menu-link" data-original-title="" title=""><span class="nk-menu-text">Permissions</span></a>
                 </li>
             </ul>
         </li>
