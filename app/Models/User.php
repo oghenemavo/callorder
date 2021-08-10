@@ -21,6 +21,7 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
+        'is_active',
     ];
 
     /**
@@ -62,6 +63,16 @@ class User extends Authenticatable
     {
         foreach ($this->roles as $role) {
             if ($user_role == $role->slug) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function hasPrivilegeTo($privilege)
+    {
+        foreach ($this->permissions as $permission) {
+            if ($privilege == $permission->slug) {
                 return true;
             }
         }

@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\Supermarket;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +48,17 @@ Route::name('admin.')->group(function() {
                 Route::put('update/permission/{permission}', [PermissionController::class, 'updatePermission'])->name('auth.update.permission');
                 Route::delete('delete/permission/{permission}', [PermissionController::class, 'deletePermission'])->name('auth.delete.permission');
             });
+
+            Route::prefix('manage')->name('manage.')->group(function() {
+                Route::get('users', [UserController::class, 'index'])->name('users');
+                Route::post('create/user', [UserController::class, 'create'])->name('create.user');
+                Route::put('edit/user/{user}', [UserController::class, 'edit'])->name('edit.user');
+                Route::put('deactivate/user/{user}', [UserController::class, 'deactivate'])->name('deactivate.user');
+                Route::put('activate/user/{user}', [UserController::class, 'activate'])->name('activate.user');
+                
+                Route::get('supermarkets', [Supermarket::class, 'index'])->name('supermarket');
+            });
+            
         });
     });
 

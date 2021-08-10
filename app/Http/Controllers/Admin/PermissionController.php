@@ -14,7 +14,7 @@ class PermissionController extends Controller
     {
         $data['page_title'] = 'Permissions';
         $data['permissions'] = Permission::all();
-        return view('admin.manage.permissions', $data);
+        return view('admin.settings.permissions', $data);
     }
 
     public function createPermission(Request $request)

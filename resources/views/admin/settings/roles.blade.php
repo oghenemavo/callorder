@@ -109,7 +109,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- create role modal -->
+                        <!-- edit role modal -->
                     @endforeach
                 </tbody>
             </table>

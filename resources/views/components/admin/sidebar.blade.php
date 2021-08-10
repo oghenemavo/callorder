@@ -11,10 +11,7 @@
     </a>
     <ul class="nk-menu-sub">
         <li class="nk-menu-item">
-            <a href="html/pages/auths/auth-login.html" class="nk-menu-link" data-original-title="" title=""><span class="nk-menu-text">Create Users</span></a>
-        </li>
-        <li class="nk-menu-item">
-            <a href="html/pages/auths/auth-register.html" class="nk-menu-link" data-original-title="" title=""><span class="nk-menu-text">View Users</span></a>
+            <a href="{{ route('admin.manage.users') }}" class="nk-menu-link" data-original-title="" title=""><span class="nk-menu-text">View Users</span></a>
         </li>
         <li class="nk-menu-item">
             <a href="#" class="nk-menu-link nk-menu-toggle" data-original-title="" title=""><span class="nk-menu-text">Authorization</span></a>
@@ -29,6 +26,12 @@
         </li>
     </ul><!-- .nk-menu-sub -->
 </li>
+<li class="nk-menu-item">
+    <a href="html/ecommerce/orders.html" class="nk-menu-link">
+        <span class="nk-menu-icon"><em class="icon ni ni-cart-fill"></em></span>
+        <span class="nk-menu-text">Super Markets</span>
+    </a>
+</li><!-- .nk-menu-item -->
 <li class="nk-menu-item">
     <a href="html/ecommerce/orders.html" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>

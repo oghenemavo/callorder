@@ -15,7 +15,7 @@ class RoleController extends Controller
     {
         $data['page_title'] = 'Roles & Permissions';
         $data['roles'] = Role::all();
-        return view('admin.manage.roles', $data);
+        return view('admin.settings.roles', $data);
     }
 
     public function createRole(Request $request)
@@ -79,7 +79,7 @@ class RoleController extends Controller
         $data['page_title'] = $role->name . ' Permissions';
         $data['role'] = $role;
         $data['permissions'] = Permission::all();
-        return view('admin.manage.role_permissions', $data);
+        return view('admin.settings.role_permissions', $data);
     }
 
     public function attachPermission(Request $request, Role $role)
