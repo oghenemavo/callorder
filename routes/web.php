@@ -1,11 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\Supermarket;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\{DashboardController, LoginController, PermissionController, RoleController, SupermarketController, UserController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,7 +51,9 @@ Route::name('admin.')->group(function() {
                 Route::put('deactivate/user/{user}', [UserController::class, 'deactivate'])->name('deactivate.user');
                 Route::put('activate/user/{user}', [UserController::class, 'activate'])->name('activate.user');
                 
-                Route::get('supermarkets', [Supermarket::class, 'index'])->name('supermarket');
+                Route::get('supermarkets', [SupermarketController::class, 'index'])->name('supermarket');
+                Route::post('create/market', [SupermarketController::class, 'create'])->name('create.market');
+                Route::put('edit/supermarkets/{supermarket}', [SupermarketController::class, 'edit'])->name('edit.market');
             });
             
         });

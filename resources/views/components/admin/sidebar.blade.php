@@ -27,7 +27,7 @@
     </ul><!-- .nk-menu-sub -->
 </li>
 <li class="nk-menu-item">
-    <a href="html/ecommerce/orders.html" class="nk-menu-link">
+    <a href="{{ route('admin.manage.supermarket') }}" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-cart-fill"></em></span>
         <span class="nk-menu-text">Super Markets</span>
     </a>
