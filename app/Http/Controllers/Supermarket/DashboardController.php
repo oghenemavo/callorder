@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Supermarket;
 use App\Http\Controllers\Controller;
 use App\Imports\ProductsImport;
 use App\Models\Inventory;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -29,16 +31,20 @@ class DashboardController extends Controller
         $request->validate($rules);
 
         if ($request->hasfile('file')) {
-            $inventory = $request->file('file');
-            $name = Str::of(auth()->user()->supermarket->name)->slug('_') . '_inventory_' . time() . '.' . $inventory->extension();
+            $result = DB::transaction(function () use($request) {
+                $inventory = $request->file('file');
+                $name = Str::of(auth()->user()->supermarket->name)->slug('_') . '_inventory_' . time() . '.' . $inventory->extension();
+    
+                $inventory->move(public_path('/inventory'), $name);
+                $data['inventory_file'] = $name;
+                $data['supermarket_id'] = auth()->user()->supermarket->id;
 
-            $inventory->move(public_path('/inventory'), $name);
-            $data['inventory_file'] = $name;
-            $data['supermarket_id'] = auth()->user()->supermarket->id;
+                Product::where('supermarket_id', auth()->user()->supermarket->id)->delete();
+                
+                Excel::import(new ProductsImport, public_path('/inventory/') . $name);
 
-            Excel::import(new ProductsImport, public_path('/inventory/') . $name);
-
-            $result = Inventory::create($data);
+                return Inventory::create($data);
+            });
             if ($result) {
                 $request->session()->flash('primary', 'Inventory uploaded successfully!');
                 if ($request->ajax()) {
