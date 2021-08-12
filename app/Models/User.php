@@ -79,4 +79,9 @@ class User extends Authenticatable
         return false;
     }
 
+    public function supermarket()
+    {
+        return $this->hasOne(Supermarket::class);
+    }
+
 }

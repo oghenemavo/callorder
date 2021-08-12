@@ -16,7 +16,6 @@ class SupermarketController extends Controller
         $data['users'] = User::join('role_user', 'role_user.user_id', 'users.id')
             ->join('roles', 'roles.id', 'role_user.role_id')->where('roles.slug', 'admin')->get(['users.*']);
         $data['sm_users'] = Supermarket::all()->pluck('user_id');
-        // dd($data['sm_users']->contains(1));
         return view('admin.manage.supermarket', $data);
     }
 

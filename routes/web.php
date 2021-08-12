@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\{DashboardController, LoginController, PermissionController, RoleController, SupermarketController, UserController};
+use App\Http\Controllers\Supermarket\DashboardController as SupermarketDashboardController;
+use App\Http\Controllers\Supermarket\LoginController as SupermarketLoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +29,7 @@ Route::name('admin.')->group(function() {
 
         Route::middleware(['auth', 'role:admin'])->group(function() {
             Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-            Route::get('logout', [DashboardController::class, 'logout'])->name('logout');
+            Route::get('logout', [LoginController::class, 'logout'])->name('logout');
             
             Route::prefix('authorization')->group(function() {
                 Route::get('roles', [RoleController::class, 'index'])->name('auth.roles');
@@ -57,6 +59,28 @@ Route::name('admin.')->group(function() {
             });
             
         });
+    });
+
+});
+
+Route::name('supermarket.')->group(function() {
+    
+    Route::prefix('supermarket')->group(function() {
+        Route::get('/', [SupermarketLoginController::class, 'login'])->name('login');
+        Route::post('login/authenticate', [SupermarketLoginController::class, 'authenticate'])->name('authenticate');
+
+        Route::middleware(['auth', 'role:merchant'])->group(function() {
+            Route::get('dashboard', [SupermarketDashboardController::class, 'index'])->name('dashboard');
+            Route::get('logout', [SupermarketLoginController::class, 'logout'])->name('logout');
+
+            Route::get('manage/account', [SupermarketDashboardController::class, 'account'])->name('manage.account');
+            Route::put('manage/update/password', [SupermarketDashboardController::class, 'password'])->name('update.password');
+
+            Route::post('upload/inventory', [SupermarketDashboardController::class, 'uploadInventory'])->name('upload.inventory');
+
+        });
+        
+
     });
 
 });

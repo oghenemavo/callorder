@@ -83,6 +83,12 @@
                             <div class="nk-content-inner">
                                 <div class="nk-content-body">
 
+                                    @foreach(['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'gray', 'light'] as $alert)
+                                        @if(session()->has($alert))
+                                            <x-alert type="{{ $alert }}" :message="session()->get($alert)"/>
+                                        @endif
+                                    @endforeach
+
                                     <!-- section content -->
                                     @yield('content')
                                     <!-- section content -->
