@@ -7,5 +7,9 @@
         <!-- merchant nav -->
         <x-merchant.sidebar/>
         <!-- merchant nav -->
+    @elseif(auth()->user()->hasRole('agent'))
+        <!-- agent nav -->
+        <x-agent.sidebar/>
+        <!-- agent nav -->
     @endif
 </ul><!-- .nk-menu -->

@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\{DashboardController, LoginController, PermissionController, RoleController, SupermarketController, UserController};
+use App\Http\Controllers\Agent\DashboardController as AgentDashboardController;
+use App\Http\Controllers\Agent\LoginController as AgentLoginController;
+use App\Http\Controllers\Agent\ProductController;
 use App\Http\Controllers\Supermarket\DashboardController as SupermarketDashboardController;
 use App\Http\Controllers\Supermarket\LoginController as SupermarketLoginController;
+use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +25,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('purchase/items/{slug}', [HomeController::class, 'purchase'])->name('purchase.items');
+Route::post('make/items/payment/{slug}', [HomeController::class, 'payment'])->name('make.items.payment');
+Route::get('verify/transaction', [HomeController::class, 'verifyTransaction'])->name('verify.transaction');
+Route::get('transaction/notification', [HomeController::class, 'transactionStatus'])->name('transaction.status');
+
+Route::name('ajax.')->group(function() {
+    
+    Route::prefix('ajax/get')->group(function() {
+
+        Route::get('all/products', [AjaxController::class, 'products'])->name('all.products');
+    });
+});
+
 Route::name('admin.')->group(function() {
 
     Route::prefix('admin')->group(function() {
@@ -31,6 +49,9 @@ Route::name('admin.')->group(function() {
             Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
             Route::get('logout', [LoginController::class, 'logout'])->name('logout');
             
+            Route::get('products', [DashboardController::class, 'products'])->name('products');
+            Route::get('orders', [DashboardController::class, 'orders'])->name('orders');
+
             Route::prefix('authorization')->group(function() {
                 Route::get('roles', [RoleController::class, 'index'])->name('auth.roles');
                 Route::post('create/role', [RoleController::class, 'createRole'])->name('auth.create.role');
@@ -81,6 +102,33 @@ Route::name('supermarket.')->group(function() {
         });
         
 
+    });
+
+});
+
+Route::name('agent.')->group(function() {
+    
+    Route::prefix('agent')->group(function() {
+        Route::get('/', [AgentLoginController::class, 'index']);
+        Route::post('authenticate', [AgentLoginController::class, 'authenticate'])->name('authenticate');
+        
+        Route::middleware(['auth', 'role:agent'])->group(function() {
+            Route::get('logout', [AgentLoginController::class, 'index'])->name('logout');
+            Route::get('dashboard', [AgentDashboardController::class, 'index'])->name('dashboard');
+            
+            Route::post('add-to-cart', [ProductController::class, 'addToCart'])->name('add.to.cart');
+            Route::post('remove-from-cart', [ProductController::class, 'removeFromCart'])->name('remove.from.cart');
+            Route::put('update-cart-item-quantity', [ProductController::class, 'updateCartItemQuantity'])->name('update.cart.item.quantity');
+            Route::delete('delete-from-cart', [ProductController::class, 'deleteFromCart'])->name('delete.from.cart');
+            Route::delete('empty-cart', [ProductController::class, 'emptyCart'])->name('empty.cart');
+
+            Route::post('create/order', [ProductController::class, 'createOrder'])->name('create.order');
+            
+            Route::get('cart', [AgentDashboardController::class, 'cart'])->name('cart');
+            Route::get('orders', [AgentDashboardController::class, 'orders'])->name('orders');
+            Route::get('fulfilment', [AgentDashboardController::class, 'fulfilment'])->name('fulfilment');
+            
+        });
     });
 
 });

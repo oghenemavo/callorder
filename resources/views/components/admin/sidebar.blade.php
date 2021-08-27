@@ -1,5 +1,5 @@
 <li class="nk-menu-item">
-    <a href="html/ecommerce/index.html" class="nk-menu-link">
+    <a href="{{ route('admin.dashboard') }}" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
         <span class="nk-menu-text">Dashboard</span>
     </a>
@@ -33,53 +33,60 @@
     </a>
 </li><!-- .nk-menu-item -->
 <li class="nk-menu-item">
-    <a href="html/ecommerce/orders.html" class="nk-menu-link">
+    <a href="{{ route('admin.orders') }}" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
         <span class="nk-menu-text">Orders</span>
     </a>
 </li><!-- .nk-menu-item -->
 <li class="nk-menu-item">
-    <a href="html/ecommerce/products.html" class="nk-menu-link">
+    <a href="{{ route('admin.products') }}" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-package-fill"></em></span>
         <span class="nk-menu-text">Products</span>
     </a>
 </li><!-- .nk-menu-item -->
-<li class="nk-menu-item">
+<!-- <li class="nk-menu-item">
     <a href="html/ecommerce/customers.html" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
         <span class="nk-menu-text">Customers</span>
     </a>
-</li><!-- .nk-menu-item -->
-<li class="nk-menu-item">
+</li> -->
+<!-- .nk-menu-item -->
+<!-- <li class="nk-menu-item">
     <a href="html/ecommerce/supports.html" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-chat-fill"></em></span>
         <span class="nk-menu-text">Supports</span>
     </a>
-</li><!-- .nk-menu-item -->
-<li class="nk-menu-item">
+</li> -->
+<!-- .nk-menu-item -->
+<!-- <li class="nk-menu-item">
     <a href="html/ecommerce/settings.html" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-opt-alt-fill"></em></span>
         <span class="nk-menu-text">Settings</span>
     </a>
-</li><!-- .nk-menu-item -->
-<li class="nk-menu-item">
+</li> -->
+<!-- .nk-menu-item -->
+<!-- <li class="nk-menu-item">
     <a href="html/ecommerce/integration.html" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-server-fill"></em></span>
         <span class="nk-menu-text">Integration</span>
     </a>
-</li><!-- .nk-menu-item -->
-<li class="nk-menu-heading">
+</li> -->
+<!-- .nk-menu-item -->
+<!-- <li class="nk-menu-heading">
     <h6 class="overline-title text-primary-alt">Return to</h6>
-</li><!-- .nk-menu-item -->
-<li class="nk-menu-item">
+</li> -->
+<!-- .nk-menu-item -->
+<!-- <li class="nk-menu-item">
     <a href="html/index.html" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-dashlite-alt"></em></span>
         <span class="nk-menu-text">Main Dashboard</span>
     </a>
-</li><!-- .nk-menu-item -->
-<li class="nk-menu-item">
+</li> -->
+<!-- .nk-menu-item -->
+<!-- <li class="nk-menu-item">
     <a href="html/components.html" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
         <span class="nk-menu-text">All Components</span>
     </a>
-</li><!-- .nk-menu-item -->
+</li> -->
+<!-- .nk-menu-item -->
