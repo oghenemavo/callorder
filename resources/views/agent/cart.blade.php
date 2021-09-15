@@ -133,9 +133,6 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            
-
-
             // update cart quantity
             $('#cart_list .form-group').on('click', 'button', function(e) {
                 e.preventDefault();

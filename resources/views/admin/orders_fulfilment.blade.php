@@ -52,12 +52,6 @@
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <ul class="link-list-opt no-bdr">
                                                         <li><a href="#" data-toggle="modal" data-target="#view_order{{ $order->id }}" ><em class="icon ni ni-eye"></em><span>Order Details</span></a></li>
-                                                        <li>
-                                                            <a href="#deliver_order" data-order="{{ $order->id }}">
-                                                                <em class="icon ni ni-truck text-success"></em><span>Mark as Delivered</span>
-                                                            </a>
-                                                        </li>
-                                                        <!-- <li><a href="#" data-order="{{ $order->id }}"><em class="icon ni ni-list-check"></em><span>Mark as Paid</span></a></li> -->
                                                     </ul>
                                                 </div>
                                             </div>
@@ -132,53 +126,3 @@
         </div><!-- .card-preview -->
     </div>
 @endsection
-
-
-@push('scripts')
-    <script>
-        $(function() {
-
-            $('#orders').on('click', 'td a[href="#deliver_order"]', function(e) {
-                e.preventDefault();
-                const order_id = $(e.currentTarget).attr('data-order');
-                // console.log($(e.currentTarget).attr('data-order'));
-
-                $.ajax({
-                    type: 'PUT',
-                    url: `${window.location.origin}/agent/deliver/order/${order_id}`,
-                    data: {
-                       "_token": "{{ csrf_token() }}",
-                    },
-                    success: function(response) {
-                        toastr.clear();
-                        toastr.options = {
-                            "timeOut": "50000",
-                        }
-                        if (response.hasOwnProperty('success')) {
-                            NioApp.Toast(response.success, 'success', {position: 'top-left'});
-                        } else {
-                            NioApp.Toast(response[Object.keys(response)[0]], Object.keys(response)[0], {position: 'top-left'});
-                        }
-                        // setTimeout( () =>  window.location.replace(`${window.location.origin}${window.location.pathname}`), 3000);
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        console.log( XMLHttpRequest.responseJSON.errors);
-                        console.log(XMLHttpRequest.status)
-                        console.log(XMLHttpRequest.statusText)
-                        console.log(errorThrown)
-                
-                        // display toast alert
-                        toastr.clear();
-                        toastr.options = {
-                            "timeOut": "7000",
-                        }
-                        NioApp.Toast('Unable to process request now.', 'error', {position: 'top-right'});
-                    }
-                });
-            });
-
-
-            
-        });
-    </script>
-@endpush

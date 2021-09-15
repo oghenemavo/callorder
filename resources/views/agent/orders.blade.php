@@ -15,27 +15,31 @@
             
             <table class="datatable-init table">
                 <thead>
-                    <tr>
-                        <th>Order#</th>
-                        <th>Customer</th>
-                        <th>Phone</th>
-                        <th>Total</th>
-                        <th>Created at</th>
+                    <tr class="nk-tb-item nk-tb-head">
+                        <th class="nk-tb-col">Order#</th>
+                        <th class="nk-tb-col tb-col-sm">Customer</th>
+                        <th class="nk-tb-col">Phone</th>
+                        <th class="nk-tb-col">Total</th>
+                        <th class="nk-tb-col tb-col-md">Created at</th>
                         <th class="nk-tb-col nk-tb-col-tools text-right"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($orders as $order)
-                        <tr>
-                            <td><a href="#" data-toggle="modal" data-target="#view_order{{ $order->id }}">{{ substr(md5($order->id), 0, 8) }}</a></td>
-                            <td>
+                        <tr class="nk-tb-item">
+                            <td class="nk-tb-col">
+                                <a href="#" data-toggle="modal" data-target="#view_order{{ $order->id }}">
+                                    {{ substr(md5($order->id), 0, 8) }}
+                                </a>
+                            </td>
+                            <td class="nk-tb-col tb-col-sm">
                                 {{ $order->customer_name }} <br>
                                 {{ $order->customer_email }}
                             </td>
-                            <td>{{ $order->phone_number }}</td>
-                            <td>{{ $order->total }}</td>
-                            <td>{{ $order->created_at->format('d M Y H:i A') }}</td>
-                            <td>
+                            <td class="nk-tb-col">{{ $order->phone_number }}</td>
+                            <td class="nk-tb-col">{{ $order->total }}</td>
+                            <td class="nk-tb-col tb-col-md">{{ $order->created_at->format('d M Y H:i A') }}</td>
+                            <td class="nk-tb-col nk-tb-col-tools text-right">
                                 <a href="#" data-toggle="modal" data-target="#view_order{{ $order->id }}"><em class="icon ni ni-eye"></em><span>View</span></a>
                             </td>
                         </tr>

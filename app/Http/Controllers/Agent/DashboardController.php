@@ -37,10 +37,16 @@ class DashboardController extends Controller
     public function fulfilment()
     {
         $data['page_title'] = 'Orders Fulfilment';
-        $data['orders'] = Order::where('user_id', auth()->user()->id)->where('is_confirmed', '1')->orderBy('updated_at', 'DESC')->get();
+        $data['orders'] = Order::where('user_id', auth()->user()->id)->where('is_confirmed', '1')->orderBy('updated_at', 'ASC')->get();
         $data['page_title'] = 'Fulfilment';
         return view('agent.orders_fulfilment', $data);
     }
 
+    public function deliverOrder(Order $order)
+    {
+        $order->is_delivered = '1';
+        $order->save();
+        return response()->json(['success' => 'Order successfully delivered']);
+    }
     
 }

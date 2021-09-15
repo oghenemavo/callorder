@@ -8,6 +8,7 @@ use App\Http\Controllers\Supermarket\DashboardController as SupermarketDashboard
 use App\Http\Controllers\Supermarket\LoginController as SupermarketLoginController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\HomeController;
+use App\Models\Supermarket;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,24 +23,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $data['locations'] = Supermarket::select('lga')->distinct()->groupBy('lga')->get();
+    return view('welcome', $data);
 });
 
 Route::get('purchase/items/{slug}', [HomeController::class, 'purchase'])->name('purchase.items');
 Route::post('make/items/payment/{slug}', [HomeController::class, 'payment'])->name('make.items.payment');
 Route::get('verify/transaction', [HomeController::class, 'verifyTransaction'])->name('verify.transaction');
 Route::get('transaction/notification', [HomeController::class, 'transactionStatus'])->name('transaction.status');
+Route::post('create/order', [HomeController::class, 'createOrder'])->name('create.order');
 
 Route::name('ajax.')->group(function() {
-    
     Route::prefix('ajax/get')->group(function() {
 
         Route::get('all/products', [AjaxController::class, 'products'])->name('all.products');
+        Route::get('search/{location}/{products}', [AjaxController::class, 'searchProduct'])->name('search.products');
+
+        Route::get('cart', [AjaxController::class, 'getCart'])->name('get.cart');
     });
+
+    Route::post('ajax/add-to-cart', [AjaxController::class, 'addToCart'])->name('add.to.cart');
+    Route::post('ajax/remove-from-cart', [AjaxController::class, 'removeCartItem'])->name('remove.from.cart');
 });
 
 Route::name('admin.')->group(function() {
-
     Route::prefix('admin')->group(function() {
         Route::get('/', [LoginController::class, 'login'])->name('login');
         Route::get('login', [LoginController::class, 'login']);
@@ -51,6 +58,7 @@ Route::name('admin.')->group(function() {
             
             Route::get('products', [DashboardController::class, 'products'])->name('products');
             Route::get('orders', [DashboardController::class, 'orders'])->name('orders');
+            Route::get('orders/fulfilment', [DashboardController::class, 'fulfilment'])->name('orders.fulfilment');
 
             Route::prefix('authorization')->group(function() {
                 Route::get('roles', [RoleController::class, 'index'])->name('auth.roles');
@@ -109,7 +117,7 @@ Route::name('supermarket.')->group(function() {
 Route::name('agent.')->group(function() {
     
     Route::prefix('agent')->group(function() {
-        Route::get('/', [AgentLoginController::class, 'index']);
+        Route::get('/', [AgentLoginController::class, 'index'])->name('index');
         Route::post('authenticate', [AgentLoginController::class, 'authenticate'])->name('authenticate');
         
         Route::middleware(['auth', 'role:agent'])->group(function() {
@@ -127,6 +135,7 @@ Route::name('agent.')->group(function() {
             Route::get('cart', [AgentDashboardController::class, 'cart'])->name('cart');
             Route::get('orders', [AgentDashboardController::class, 'orders'])->name('orders');
             Route::get('fulfilment', [AgentDashboardController::class, 'fulfilment'])->name('fulfilment');
+            Route::put('deliver/order/{order}', [AgentDashboardController::class, 'deliverOrder'])->name('deliver.order');
             
         });
     });

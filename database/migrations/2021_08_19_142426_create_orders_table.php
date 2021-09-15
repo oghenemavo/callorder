@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('total', 11, 2, true);
             $table->text('items');
             $table->enum('is_confirmed', ['0', '1'])->default('0');
+            $table->enum('is_delivered', ['0', '1'])->default('0');
             $table->timestamps();
         });
     }

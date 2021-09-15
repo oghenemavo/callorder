@@ -18,6 +18,7 @@ class Order extends Model
         'total',
         'items',
         'is_confirmed',
+        'is_delivered',
     ];
     
 }

@@ -67,4 +67,24 @@ class HomeController extends Controller
             return view('customer.success', $data);
         }
     }
+
+    public function createOrder(Request $request)
+    {   
+        $cart = $request->session()->get('cart_item');
+
+        $total = array_sum(array_map(fn($cart_item) => ($cart_item['quantity'] * $cart_item['price']), $cart));
+
+        $data = $request->all();
+        $data['slug'] = $request->phone_number . '_' . bin2hex(random_bytes(20));
+        $data['items'] = json_encode(array_values($cart));
+        $data['total'] = $total;
+
+        $request->session()->forget('cart_item');
+        $result = Order::create($data);
+
+        if ($result) {
+            return redirect()->route('purchase.items', $result->slug);
+        }
+        return back()->with('error', 'Unable to create order');
+    }
 }

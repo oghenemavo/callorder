@@ -26,4 +26,12 @@ class DashboardController extends Controller
         $data['orders'] = Order::all();
         return view('admin.orders', $data);
     }
+
+    public function fulfilment()
+    {
+        $data['page_title'] = 'Orders Fulfilment';
+        $data['orders'] = Order::where('is_confirmed', '1')->orderBy('updated_at', 'ASC')->get();
+        $data['page_title'] = 'Orders Fulfilment';
+        return view('admin.orders_fulfilment', $data);
+    }
 }
