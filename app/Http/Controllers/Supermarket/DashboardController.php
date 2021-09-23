@@ -23,6 +23,51 @@ class DashboardController extends Controller
         return view('merchant.index', $data);
     }
 
+    public function products()
+    {
+        $data['page_title'] = 'Merchant Products';
+        return view('merchant.products', $data);
+    }
+
+    public function deleteProduct(Request $request)
+    {
+        $product_id = $request->product_id;
+        $supermarket_id = $request->supermarket_id;
+
+        $product = Product::where('supermarket_id', $supermarket_id)->where('id', $product_id)->firstOrFail();
+        $result = $product->delete();
+        if ($result) {
+            return response()->json(['success' => 'Product deleted Successfully!']);
+        }
+        return response()->json(['info' => 'No Changes made!']);
+    }
+
+    public function updateProduct(Request $request)
+    {
+        $rules = [
+            'product_name' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+            'expires_at' => 'required',
+            'description' => 'required',
+        ];
+        $request->validate($rules);
+
+        $product = Product::find($request->product_id);
+        $product->product = $request->product_name;
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        $product->description = $request->description;
+        $product->expires_at = $request->expires_at;
+
+        $product->save();
+        $result = $product->wasChanged();
+        if ($result) {
+            return response()->json(['success' => 'Product Updated Successfully!']);
+        }
+        return response()->json(['info' => 'No Changes made!']);
+    }
+
     public function uploadInventory(Request $request)
     {
         $rules = [

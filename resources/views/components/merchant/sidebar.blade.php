@@ -5,6 +5,12 @@
     </a>
 </li><!-- .nk-menu-item -->
 <li class="nk-menu-item">
+    <a href="{{ route('supermarket.products') }}" class="nk-menu-link">
+        <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+        <span class="nk-menu-text">Products</span>
+    </a>
+</li><!-- .nk-menu-item -->
+<li class="nk-menu-item">
     <a href="{{ route('supermarket.manage.account') }}" class="nk-menu-link">
         <span class="nk-menu-icon"><em class="icon ni ni-opt-alt-fill"></em></span>
         <span class="nk-menu-text">Settings</span>

@@ -37,6 +37,7 @@ Route::name('ajax.')->group(function() {
     Route::prefix('ajax/get')->group(function() {
 
         Route::get('all/products', [AjaxController::class, 'products'])->name('all.products');
+        Route::get('merchant/{supermarket_id}/products', [AjaxController::class, 'merchantProducts'])->name('merchant.products');
         Route::get('search/{location}/{products}', [AjaxController::class, 'searchProduct'])->name('search.products');
 
         Route::get('cart', [AjaxController::class, 'getCart'])->name('get.cart');
@@ -101,7 +102,11 @@ Route::name('supermarket.')->group(function() {
         Route::middleware(['auth', 'role:merchant'])->group(function() {
             Route::get('dashboard', [SupermarketDashboardController::class, 'index'])->name('dashboard');
             Route::get('logout', [SupermarketLoginController::class, 'logout'])->name('logout');
-
+            
+            Route::get('products', [SupermarketDashboardController::class, 'products'])->name('products');
+            Route::put('update/product', [SupermarketDashboardController::class, 'updateProduct'])->name('update.product');
+            Route::delete('delete/product', [SupermarketDashboardController::class, 'deleteProduct'])->name('delete.product');
+            
             Route::get('manage/account', [SupermarketDashboardController::class, 'account'])->name('manage.account');
             Route::put('manage/update/password', [SupermarketDashboardController::class, 'password'])->name('update.password');
 

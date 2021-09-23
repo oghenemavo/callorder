@@ -16,6 +16,13 @@ class AjaxController extends Controller
         return response()->json(['products' => $products]);
     }
 
+    public function merchantProducts($supermarket_id)
+    {
+        $products = Product::where('supermarket_id', $supermarket_id)->get();
+        
+        return response()->json(['products' => $products]);
+    }
+
     public function orders()
     {
         $products = Product::join('supermarkets', 'products.supermarket_id', 'supermarkets.id')
