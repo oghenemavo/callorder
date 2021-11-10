@@ -1,400 +1,127 @@
-<!Doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!doctype html>
+<html lang="en" class="h-100">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="shortcut icon" href="{{ asset('images/grocery-icon2x.png') }}">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <meta name="description" content="">
+    <meta name="author" content="Call order">
+    <meta name="generator" content="Hugo 0.88.1">
     <title>Call Order</title>
 
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#7952b3">
+
+
     <style>
-        .search-form {
-            width: 80%;
-            margin: 0 auto;
-            margin-top: 1rem;
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
         }
-        .search-form input {
-            height: 100%;
-            background: transparent;
-            border: 0;
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            height: 100%;
-            font-size: 1rem;
+      }
+
+
+        /* Custom default button */
+        .btn-secondary,
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+        color: #333;
+        text-shadow: none; /* Prevent inheritance from `body` */
         }
 
-        .search-form select {
-            background-color: transparent;
-            border: 0;
-            padding: 1rem;
-            height: 100%;
-            font-size: 1rem;
+
+        /*
+        * Base structure
+        */
+
+        body {
+        text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+        box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
         }
 
-        .search-form select:focus {
-            border: 0;
+        .cover-container {
+        max-width: 42em;
         }
 
-        .search-form button {
-            height: 100%;
-            width: 100%;
-            font-size: 1rem;
+
+        /*
+        * Header
+        */
+
+        .nav-masthead .nav-link {
+        padding: .25rem 0;
+        font-weight: 700;
+        color: rgba(255, 255, 255, .5);
+        background-color: transparent;
+        border-bottom: .25rem solid transparent;
         }
 
-        .search-form button svg {
-            width: 24px;
-            height: 24px;
+        .nav-masthead .nav-link:hover,
+        .nav-masthead .nav-link:focus {
+        border-bottom-color: rgba(255, 255, 255, .25);
         }
+
+        .nav-masthead .nav-link + .nav-link {
+        margin-left: 1rem;
+        }
+
+        .nav-masthead .active {
+        color: #fff;
+        border-bottom-color: #fff;
+        }
+
     </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
   </head>
-  <body>
-      <header>
-        <nav class="navbar navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="{{ asset('images/grocery-icon2x.png') }}" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                    Call Order
-                </a>
-            </div>
-        </nav>
-      </header>
+  <body class="d-flex h-100 text-center text-white bg-dark">
+    
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="mb-auto">
+    <div>
+      <h3 class="float-md-start mb-0"><img src="{{ asset('images/grocery-icon2x.png') }}" alt="" width="100" class="d-inline-block align-text-top"></h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <!-- <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="#">Contact</a> -->
+      </nav>
+    </div>
+  </header>
 
-      <main class="mt-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 card-margin">
-                    <div class="card search-form">
-                        <div class="card-body p-0">
-                            <form id="search-form">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row no-gutters">
-                                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                                <select class="form-select" id="location">
-                                                    <option value="">Location</option>
-                                                    @foreach($locations as $location)
-                                                        <option value="{{ $location->lga }}">{{ $location->lga }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-8 col-md-6 col-sm-12 p-0">
-                                                <input type="search" placeholder="Search..." class="form-control" id="searchbox" name="searchbox">
-                                            </div>
-                                            <div class="col-lg-1 col-md-3 col-sm-12 p-0">
-                                                <button type="submit" class="btn btn-base">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            
-        <section class="py-3">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-7">
-                        <!-- results -->
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- <h5 class="card-title">Card title</h5> -->
-                                <h6 class="card-subtitle mb-2 text-muted">Results: <b>1-20</b></h6>
+  <main class="px-3">
+    <h1>Call Order is a shopping assistant platform that provides efficient shopping services to people .</h1>
+    <!-- <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p> -->
+    <p class="lead">
+      for enquires kindly call us on 09079562466
+      <!-- <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a> -->
+    </p>
+  </main>
 
-                                <div class="result-body">
-                                    <div class="table-responsive">
-                                        <table class="table widget-26">
-                                            <tbody id="results"></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- results -->
-                    </div>
+  <footer class="mt-auto text-white-50">
+    <p>Cover template for <a href="#" class="text-white">Callorder</a>.</p>
+  </footer>
+</div>
 
-                    <!-- cart -->
-                    <div class="col-md-5">
-                        <h4>Cart</h4>
-                        <div class="cart-body">
-                            <div class="table-responsive">
-                                <table class="table widget-26">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Qty</th>
-                                            <th>Sub total</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="cart_items">
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th colspan="3">Total</th>
-                                            <th id="total"></th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                                <div class="d-grid gap-2">
-                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Order Now</button>
 
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Buyer Details</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{{ route('create.order') }}" method="post" id="create_order">
-                                                        @csrf
-                                                        <div class="mb-3">
-                                                            <label for="customer_name" class="col-form-label">Customer Name:</label>
-                                                            <input type="text" class="form-control" id="customer_name" name="customer_name" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="customer_email" class="col-form-label">Customer Email:</label>
-                                                            <input type="email" class="form-control" id="customer_email" name="customer_email" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="phone_number" class="col-form-label">Customer Phone Number:</label>
-                                                            <input type="tel" class="form-control" id="phone_number" name="phone_number" required>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" id="purchase" class="btn btn-primary">Purchase</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-      </main>
-
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div id="myToastEl" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="{{ asset('images/grocery-icon2x.png') }}" width="20" class="rounded me-2" alt="...">
-                    <strong class="me-auto">Notification</strong>
-                    <!-- <small>11 mins ago</small> -->
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body"></div>
-            </div>
-        </div>
-
-      <footer>
-      </footer>
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="{{ asset('assets/js/bootstrap-input-spinner.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#purchase').click(function() {
-                // alert(111)
-                $('#create_order').submit();
-            });
-
-            let searchForm, location, searchbox, result;
-
-            searchForm = $('#search-form');
-            location = searchForm.find('#location');
-            searchbox = searchForm.find('#searchbox');
-
-            searchbox.attr('disabled', true);
-
-            result = $('#results');
-
-            getCartItems();
-            
-            location.change(() => {
-                if (location.val() != '') {
-                    searchbox.attr('disabled', false);                    
-                }
-            });
-
-            searchbox.on('input', () => {
-                if (searchbox.val().length > 3) {
-                    $.get({
-                        url: `{{ url('/') }}/ajax/get/search/${location.val()}/${searchbox.val()}`,
-                        success: function(response) {
-                            let displayProducts;
-                            result.empty();
-                            $.each(response.products, function (indexInArray, product) { 
-                                // console.log(valueOfElement);
-                                displayProducts = `
-                                    <tr>
-                                        <td>
-                                            <div class="widget-26-job-emp-img">
-                                                <img src="{{ asset('images/grocery-icon2x.png') }}" alt="${product.product}" width="50" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="widget-26-job-title">
-                                                <p class="m-0">${product.product}</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="widget-26-job-info">
-                                                <p class="type m-0">${product.lga}, ${product.state}</p>
-                                                <p class="text-muted m-0">in <span class="location">${product.name}</span></p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="widget-26-job-salary">₦${product.price}</div>
-                                        </td>
-                                        <td>
-                                            <div class="widget-26-job-category bg-soft-base">
-                                                <i class="indicator bg-base"></i>
-                                                <span>${product.quantity} left</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="widget-26-job-starred">
-                                                <a class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#productModal${product.id}">View</a>
-                                                
-                                                <div class="modal fade" id="productModal${product.id}" tabindex="-1" aria-labelledby="productLabel${product.id}" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="productLabel${product.id}">Product Description</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <p>${product.description}</p>
-                                                                <div class="d-flex">
-                                                                    <input type="number" value="1" min="1" max="${product.quantity}" step="1"/>
-                                                                    <a href="#add_to_cart" data-product="${product.id}" class="add_to_cart btn btn-primary">Add to Cart</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                `;
-                                result.append(displayProducts);
-                            });
-                        },
-                        dataType: 'json',
-                    });
-                } else {
-                    result.empty();
-                }
-            });
-
-            $('#results').on('click', 'a[href="#add_to_cart"]', function(e) {
-                e.preventDefault();
-                let addToCart = $(e.target);
-
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('ajax.add.to.cart') }}",
-                    data: {
-                       "_token": "{{ csrf_token() }}",
-                        product_id: addToCart.attr('data-product'),
-                        quantity: addToCart.prev().val(),
-                    },
-                    success: function(response) {
-                        getCartItems();
-                        if (response.hasOwnProperty('success')) {
-                            toast(response['success'], 'bg-success text-white');
-
-                        } else {
-                            toast(response['warning'], 'bg-warning text-white');
-                        }
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        console.log( XMLHttpRequest.responseJSON.errors);
-                        console.log(XMLHttpRequest.status)
-                        console.log(XMLHttpRequest.statusText)
-                        console.log(errorThrown)
-                
-                        // display toast alert
-                        toast('failed', 'bg-danger text-white');
-                    }
-                });
-            })
-
-            function toast(body, color) {
-                var myToastEl = $('#myToastEl');
-                myToastEl.addClass(color)
-                myToastEl.find('.toast-body').text(body);
-                var myToast = bootstrap.Toast.getOrCreateInstance(myToastEl) // Returns a Bootstrap toast instance
-                return myToast.show();
-            }
-
-            function getCartItems() {
-                $.get({
-                    url: `{{ route('ajax.get.cart') }}`,
-                    success: function(response) {
-                        $('#cart_items').empty();
-                        var displayCart, tots = 0;
-                        $.each(response, function(index, cart) {
-                            console.log(cart)
-                            tots += (cart.quantity * cart.price);
-                            displayCart = `
-                                <tr>
-                                    <td>${cart.product}</td>
-                                    <td>${cart.price}</td>
-                                    <td>${cart.quantity}</td>
-                                    <td>${cart.quantity * cart.price}</td>
-                                    <td><a href="#" data-product="${cart.product_id}" class="remove-from-cart">remove</a></td>
-                                </tr>
-                            `;
-                            $('#cart_items').append(displayCart);
-                        });
-                        $('#total').text(tots);
-                    },
-                    dataType: 'json',
-                });
-            }
-
-            $('#cart_items').on('click', 'a[class="remove-from-cart"]', function(e) {
-                e.preventDefault();
-                $.post({
-                    url: `{{ route('ajax.remove.from.cart') }}`,
-                    data: {
-                       "_token": "{{ csrf_token() }}",
-                        product_id: $(e.target).attr('data-product'),
-                    },
-                    success: function(response) {
-                        if (response.hasOwnProperty('success')) {
-                            toast(response['success'], 'bg-success text-white');
-                        } 
-                        getCartItems();
-                    },
-                    dataType: 'json',
-                });
-            });
-
-        });
-    </script>
-
+    
   </body>
 </html>
